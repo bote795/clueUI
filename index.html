@@ -60,15 +60,26 @@
                     <option ng-repeat="username in clueList.users"value="{{username}}">{{username}}</option>
                 </select>
               </td>
-                <select ng-model="clueList.who_clue">
+              <td>
+                <select ng-model="clueList.what_clue">
                     <option ng-repeat="who in clueList.who"value="{{who}}">{{who}}</option>
                 </select>
               </td>              
-              </td>
+              <td>
                 <select ng-model="clueList.who_clue">
-                    <option ng-repeat="who in clueList.who"value="{{who}}">{{who}}</option>
+                    <option ng-repeat="what in clueList.what"value="{{what}}">{{what}}</option>
                 </select>
-              </td>                 
+              </td>
+              <td>
+                <select ng-model="clueList.where_clue">
+                    <option ng-repeat="where in clueList.where"value="{{where}}">{{where}}</option>
+                </select>
+              </td> 
+              <td ng-repeat="key in clueList.keys">
+                <select ng-model="clueList.key">
+                    <option ng-repeat="opt in clueList.options"value="{{opt}}">{{opt}}</option>
+                </select>
+              </td>
             </tr>
           </tbody>
         </table>

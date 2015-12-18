@@ -8,12 +8,16 @@ angular.module('clueApp', [])
     clueList.what = ["Wrench","Candlestick", "Dagger", "Pistol","Lead Pipe","Rope"];
     //list of possible wheres
     clueList.where =["Bathroom","Office","Dining Room","Game Room","Garage","Bedroom","Living Room","Kitchen","Courtyard"];
+    //list of options for player
+    clueList.options= ["skip", "stoped"];
     //number of players
     clueList.num=3;
     //player names
     clueList.users=[];
     //turn count
     clueList.turn=1;
+    //keys
+    clueList.keys=[];
 
     clueList.detectiveClues=[];
     clueList.setNum = function(){
@@ -24,6 +28,7 @@ angular.module('clueApp', [])
       clueList.users.push(clueList.username);
       console.log(clueList.username);
       clueList.username = "";
+      clueList.keys.push(clueList.id(clueList.users.length+1))
       if(clueList.users.length == clueList.num)
         {clueList.inputComplete = true;}
     };
@@ -43,4 +48,7 @@ angular.module('clueApp', [])
       //save row
       clueList.turn++;
     };
+    clueList.id = function(num){
+      return "player"+num;
+    }
   });
