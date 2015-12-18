@@ -1,0 +1,79 @@
+<!doctype html>
+<html ng-app="clueApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="Javascript/clue.js"></script>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/clue.css">
+  </head>
+  <body>
+    <h2>Clue Notes</h2>
+    <div ng-controller="ClueListController as clueList">
+      <!-- NumberOfPlayers -->
+      <form ng-submit="clueList.setNum()" ng-hide="clueList.inputComplete">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Number of Players</span>
+          <input type="number" min="3" max="6" ng-model="clueList.typed">
+          <input class="btn-primary" type="submit" value="save">
+        </div>
+      </form>
+      <!-- type name of users -->
+      <form ng-submit="clueList.addUser()" ng-hide="clueList.inputComplete">
+        <div class="input-group" >
+          <span class="input-group-addon" id="basic-addon1">Name of Player {{clueList.users.length+1}} of {{clueList.num}}</span>
+          <input type="text" ng-model="clueList.username">
+          <input class="btn-primary" type="submit" value="add">
+        </div>
+      </form>      
+      <!-- display Data -->
+      <table class="table table-striped table-hover" ng-show="clueList.inputComplete">
+        <thead>
+          <tr>
+            <th>Turn</th>
+            <th>Player</th>
+            <th>Who?</th>
+            <th>what?</th>
+            <th>Where?</th>
+            <th ng-repeat="username in clueList.users">
+              {{username}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="clue in clueList.detectiveClues">
+              <td ng-repeat="data in clue">{{data}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- add clue -->
+      <form ng-submit="clueList.addClue">
+        <table>
+          <tbody>
+            <tr>
+              <td>{{clueList.turn}}</td>
+              <td>
+                <select ng-model="clueList.player">
+                    <option ng-repeat="username in clueList.users"value="{{username}}">{{username}}</option>
+                </select>
+              </td>
+                <select ng-model="clueList.who_clue">
+                    <option ng-repeat="who in clueList.who"value="{{who}}">{{who}}</option>
+                </select>
+              </td>              
+              </td>
+                <select ng-model="clueList.who_clue">
+                    <option ng-repeat="who in clueList.who"value="{{who}}">{{who}}</option>
+                </select>
+              </td>                 
+            </tr>
+          </tbody>
+        </table>
+        <input class="btn-primary" type="submit" value="add">
+      </form>
+    </div>
+  </body>
+</html>
