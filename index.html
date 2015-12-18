@@ -45,7 +45,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="clue in clueList.detectiveClues">
-              <td ng-repeat="data in clue">{{data}}</td>
+              <td ng-repeat="data in clue track by $index">{{data}}</td>
           </tr>
         </tbody>
       </table>
