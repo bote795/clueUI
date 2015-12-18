@@ -50,34 +50,35 @@
         </tbody>
       </table>
       <!-- add clue -->
-      <form ng-submit="clueList.addClue">
-        <table>
+      <form ng-submit="clueList.addClue(form)">
+        <table class="table table-striped table-hover"> 
+        </thead>
           <tbody>
             <tr>
-              <td>{{clueList.turn}}</td>
+              <td ng-model="form.turn" value="{{clueList.turn}}">{{clueList.turn}}</td>
               <td>
-                <select ng-model="clueList.player">
+                <select ng-model="form.player">
                     <option ng-repeat="username in clueList.users"value="{{username}}">{{username}}</option>
                 </select>
               </td>
               <td>
-                <select ng-model="clueList.what_clue">
+                <select ng-model="form.what_clue">
                     <option ng-repeat="who in clueList.who"value="{{who}}">{{who}}</option>
                 </select>
               </td>              
               <td>
-                <select ng-model="clueList.who_clue">
+                <select ng-model="form.who_clue">
                     <option ng-repeat="what in clueList.what"value="{{what}}">{{what}}</option>
                 </select>
               </td>
               <td>
-                <select ng-model="clueList.where_clue">
+                <select ng-model="form.where_clue">
                     <option ng-repeat="where in clueList.where"value="{{where}}">{{where}}</option>
                 </select>
               </td> 
               <td ng-repeat="key in clueList.keys">
-                <select ng-model="clueList.key">
-                    <option ng-repeat="opt in clueList.options"value="{{opt}}">{{opt}}</option>
+                <select ng-model="form[key]">
+                    <option ng-repeat="opt in clueList.options"value="{{opt}}" selected="{{opt == 'none' ? 'selected': 'none' }}">{{opt}}</option>
                 </select>
               </td>
             </tr>
