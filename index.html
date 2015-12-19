@@ -38,9 +38,7 @@
             <th>Who?</th>
             <th>what?</th>
             <th>Where?</th>
-            <th ng-repeat="username in clueList.users">
-              {{username}}
-            </th>
+            <th>Stoped</th>
           </tr>
         </thead>
         <tbody>
@@ -76,9 +74,10 @@
                     <option ng-repeat="where in clueList.where"value="{{where}}">{{where}}</option>
                 </select>
               </td> 
-              <td ng-repeat="key in clueList.keys">
-                <select ng-model="form[key]">
-                    <option ng-repeat="opt in clueList.options"value="{{opt}}" selected="{{opt == 'none' ? 'selected': 'none' }}">{{opt}}</option>
+              <td>
+                <select ng-model="form.stoped">
+                    <option ng-repeat="username in clueList.users"value="{{username}}">{{username}}</option>
+                    <option value="none" selected="selected">NONE</option>
                 </select>
               </td>
             </tr>
