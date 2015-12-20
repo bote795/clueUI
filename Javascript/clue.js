@@ -1,55 +1,72 @@
 angular.module('clueApp', [])
-    .controller('ClueListController', function() {
-    var clueList = this;
-    clueList.inputComplete = false;
+    .controller('ClueListController', function($scope) {
+    $scope.inputComplete = false;
     //list of possible who
-    clueList.who = ["Green","Mustard","Peacock(Blue)","Plum","Scarlet","White"];
+    $scope.who = ["Green","Mustard","Peacock(Blue)","Plum","Scarlet","White"];
     //list of possible what?
-    clueList.what = ["Wrench","Candlestick", "Dagger", "Pistol","Lead Pipe","Rope"];
+    $scope.what = ["Wrench","Candlestick", "Dagger", "Pistol","Lead Pipe","Rope"];
     //list of possible wheres
-    clueList.where =["Bathroom","Office","Dining Room","Game Room","Garage","Bedroom","Living Room","Kitchen","Courtyard"];
+    $scope.where =["Bathroom","Office","Dining Room","Game Room","Garage","Bedroom","Living Room","Kitchen","Courtyard"];
     //list of options for player
-    clueList.options= ["skip", "stoped", "None"];
+    $scope.options= ["skip", "stoped", "None"];
     //number of players
-    clueList.num=3;
+    $scope.num=3;
     //player names
-    clueList.users=[];
+    $scope.users=[];
     //turn count
-    clueList.turn=1;
-    //keys
-    clueList.keys=[];
+    $scope.turn=1;
+    //current clues
+    $scope.detectiveClues=[];
+    //dicts of data
+    $scope.possibilities={};
 
-    clueList.detectiveClues=[];
-    clueList.setNum = function(){
-      clueList.num = clueList.typed;
+    $scope.setNum = function(clueList){
+      $scope.num = clueList.typed;
     };
 
-    clueList.addUser = function() {
-      clueList.users.push(clueList.username);
+    $scope.addUser = function(clueList) {
+      $scope.users.push(clueList.username);
       console.log(clueList.username);
       clueList.username = "";
-      clueList.keys.push(clueList.id(clueList.users.length))
-      if(clueList.users.length == clueList.num)
-        {clueList.inputComplete = true;}
+      $scope.keys.push($scope.id($scope.users.length))
+      if($scope.users.length == $scope.num)
+        {$scope.inputComplete = true;}
     };
     
 
  
-    clueList.addClue = function(form) {
+    $scope.addClue = function(form) {
       console.log(form);
-      var temp =[clueList.turn,
+      var temp =[$scope.turn,
       form.player, form.who_clue ,form.what_clue,
-      form.where_clue];
-      clueList.detectiveClues.push(temp);
-      console.log(clueList.detectiveClues);
-      for (var i = 1; i <= clueList.users.length; i++) {
-        var id="player"+i;
-        temp.push(form[id]);
-      };
+      form.where_clue,form.stoped];
+      var items = [form.who_clue, form.what_clue ,form.where_clue];
+      
+      $scope.detectiveClues.push(temp);
+      console.log($scope.detectiveClues);
+      $scope.none(form.player, form.stoped, items);
       //save row
-      clueList.turn++;
+      $scope.turn++;
     };
-    clueList.id = function(num){
-      return "player"+num;
+
+    $scope.none = function(ask,stoped,items){
+      var origin = $scope.users.indexOf(ask);
+      if(stoped == "NONE")
+      {
+         addToPossibilities(person,itmes)
+      }
+      var target = $scope.users.indexOf(stoped);
+
+    }
+    $scope.addToPossibilities = function(person,items) {
+      var dict={};
+      if (person in $scope.possibilities)
+      {
+        console.log("dont contain key:"+person)
+        dict = $scope.possibilities[person]={"who": [], "what":[], "where":[]};
+      }    
+      dict["who"].push(items[0]);
+      dict["what"]push(items[1]);
+      dict["where"]push(items[2]);
     }
   });
