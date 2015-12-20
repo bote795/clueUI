@@ -28,7 +28,6 @@ angular.module('clueApp', [])
       $scope.users.push(clueList.username);
       console.log(clueList.username);
       clueList.username = "";
-      $scope.keys.push($scope.id($scope.users.length))
       if($scope.users.length == $scope.num)
         {$scope.inputComplete = true;}
     };
@@ -51,12 +50,53 @@ angular.module('clueApp', [])
 
     $scope.none = function(ask,stoped,items){
       var origin = $scope.users.indexOf(ask);
+      var skipped = [];
+      console.log(origin);
       if(stoped == "NONE")
       {
-         addToPossibilities(person,itmes)
+        for (var i = 0; i < $scope.users.length; i++) {
+          if($scope.users[i] != ask)
+          {
+            skipped.push($scope.users[i]);
+          }
+        }
       }
-      var target = $scope.users.indexOf(stoped);
+      else
+      {
+        var target = $scope.users.indexOf(stoped);
+        console.log(target);
+        // 3 > 1
+        var index=origin;
+        if(origin > target)
+        {
+          if (origin == $scope.users.length-1) 
+          {
+            index=0;
+          }
+          else
+            index++;
+          // 0 1 [2] 3 4
+          for (var i = index; i < $scope.users.length && i != origin && i != target; i++) {
+            skipped.push($scope.users[i])
+            if (i+1 == $scope.users.length ) // it needs to reloop
+            {
+              i=-1;
+            }
+          }
+        }
+        else
+        {
+          index++;
+          for (var i = index; i < $scope.users.length && i < target && i != origin; i++) {
+            skipped.push($scope.users[i])
+          }
+        }
 
+      }
+      for (var i = 0; i < skipped.length; i++) {
+        addToPossibilities(skipped[i], items);
+      };
+      console.log($scope.possibilities);
     }
     $scope.addToPossibilities = function(person,items) {
       var dict={};
@@ -65,8 +105,10 @@ angular.module('clueApp', [])
         console.log("dont contain key:"+person)
         dict = $scope.possibilities[person]={"who": [], "what":[], "where":[]};
       }    
+      else
+        dict = $scope.possibilities[person];
       dict["who"].push(items[0]);
-      dict["what"]push(items[1]);
-      dict["where"]push(items[2]);
+      dict["what"].push(items[1]);
+      dict["where"].push(items[2]);
     }
   });
