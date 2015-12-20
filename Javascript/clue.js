@@ -94,21 +94,26 @@ angular.module('clueApp', [])
 
       }
       for (var i = 0; i < skipped.length; i++) {
-        addToPossibilities(skipped[i], items);
+        $scope.addToPossibilities(skipped[i], items);
       };
       console.log($scope.possibilities);
     }
     $scope.addToPossibilities = function(person,items) {
       var dict={};
-      if (person in $scope.possibilities)
+      if (!(person in $scope.possibilities))
       {
         console.log("dont contain key:"+person)
         dict = $scope.possibilities[person]={"who": [], "what":[], "where":[]};
       }    
       else
         dict = $scope.possibilities[person];
-      dict["who"].push(items[0]);
-      dict["what"].push(items[1]);
-      dict["where"].push(items[2]);
+      if(dict["who"].indexOf(items[0]) == -1)
+        dict["who"].push(items[0]);
+
+      if(dict["what"].indexOf(items[1]) == -1)        
+        dict["what"].push(items[1]);
+
+      if(dict["where"].indexOf(items[2]) == -1)  
+        dict["where"].push(items[2]);
     }
   });
