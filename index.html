@@ -86,7 +86,17 @@
         <input class="btn-primary" type="submit" value="add">
       </form>
 
-      
+      <!-- data for items they dont have -->
+      <span ng-show="inputComplete">Don't Have<span>
+      <div ng-repeat="(name, dict) in possibilities" ng-show="inputComplete">
+        <b>{{name}}</b>
+        <ul ng-repeat="(data, array) in dict">
+          <b>{{data}}</b>
+          <li ng-repeat="item in array">
+            {{item}}
+          </li>
+        </ul>               
+      </div>
     </div>
   </body>
 </html>
